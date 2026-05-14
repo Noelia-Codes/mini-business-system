@@ -1,121 +1,121 @@
-📦 Mini Business System — Blueprint
+📦 Inventory System — Blueprint
 
-🎯 Project Goal
+🟢 Version 1 (Current Build)
 
-A simple Python-based business management system that simulates product inventory, sales tracking, and basic analytics.
-The system is designed to practice:
-  * data structures (dictionaries, sets)
-  * control flow
-  * functions and modular design
-  * input validation
-  * basic business logic
+🎯 Goal
+A functional inventory system with basic sales tracking.
 
-🧱 Core Features (User Functions)
+🧱 Data Structures
+inventory = {}
+sales_log = []
+
+📦 Inventory Structure
+inventory = {
+     "shirt": {
+     "price": 10.0,
+     "stock": 5,
+     "sold_quantity": 2,
+     "category": "clothing",
+     "supplier": "nike"
+     }
+}
+
+🧾 Sales Log Structure
+sales_log = [
+     {
+     "product": "shirt",
+     "quantity": 2,
+     "total": 20.0,
+     "date": "14/05/2026"
+     }
+]
+
+🧠 Core Functions (V1)
 
 1. Add Product
-  * Add a new product to the system
-      * If product already exists:
-          * ask user to update stock or cancel
-      * If new product:
-          * collect all required data
-
+     * Input product name (normalized)
+     * Check if product exists
+        * If yes → ask to update stock
+        * If no → create new product
+     * Validate inputs:
+        * price (float)
+        * stock (int)
+        * category (text)
+        * supplier (text)
 
 2. Sell Product
-  * Search product by name (normalized)
-      * If product does not exist:
-          * inform user and suggest adding it
-      * If product exists:
-          * request quantity
-          * validate stock availability
-          * allow partial sale if stock is insufficient (user confirmation required)
-          * update stock and sold quantity
+* Search product in inventory
+* If not found → show error message
+* If found:
+    * Validate quantity
+    * Check stock availability
+    * If enough stock:
+        * Reduce stock
+        * Update sold_quantity
+        * Calculate total price
+        * Create sales record
+        * Add automatic date
+        * Append to sales_log
+    * If not enough stock:
+        * Reject sale
 
-3. View Inventory
-  * Display products in a **table format**
-  * Default view:
-      * product name
-      * price
-      * stock
-  * Optional detailed view:
-      * supplier
-      * category
-      * sold quantity
+3. View Inventory (V1)
+* Option A: display all products
+* Option B: display a single product by name
 
+4. Sales Summary (V1 Basic)
+* Display all sales records
+* Print entries from sales_log
 
-4. Sales Summary
-Provides analytics in three modes:
-  * Full ranking:
-    * all products included (even zero sales)
-    * sorted by selected metric
+5. Menu System
 
-  * Unsold products
-    * products with sold_quantity = 0
+* Loop using while True
+* Input validation (integer)
+* Route using if/elif
 
-  * Top N products
-    * user-defined limit
+🟡 Version 2 (Future Improvements)
 
-Ranking options:
-  * by units sold
-  * by revenue (price × sold_quantity)
-
-
-🧠 Data Model
-
-Products dictionary structure:
-Each product is stored as:
-  * name (key, normalized)
-  * price
-  * stock
-  * sold_quantity
-  * supplier
+Enhanced View Inventory
+* Filter by:
   * category
+  * supplier
+  * stock level
 
-Supporting data structure:
-  * `products` → dictionary of dictionaries
-  * `product_names` → set for uniqueness control
+Smart Search
+* Partial name matching
+* Optional fuzzy search
 
+Advanced Sales Summary
+* Total revenue
+* Best-selling product
+* Sales per product
+* Total units sold
 
-🛡️ Validation Rules
-  * All product names are normalized using:
-    * `lower()`
-    * `strip()`
+Partial Sales
+* Allow selling less stock than requested
+* User confirmation required
 
-* Menu input must be valid (strict mode)
+UX Improvements
+* Cancel operations during input
+* Better error handling
+* Retry loops for invalid input
 
-* Numeric inputs must be:
-    * valid numbers
-    * non-negative
+Data Persistence
+* Save inventory to file
+* Load inventory on startup
 
-* Stock cannot go below zero
+🚀 Summary
 
-* Sales cannot exceed available stock (partial sale allowed only with confirmation)
+Version 1 is complete when:
+* Inventory system works
+* Selling works
+* Sales log works
+* View inventory works
+* Menu system works
 
-
-🔁 Program Flow
-1. `main()` starts the system
-2. Menu is displayed
-3. User selects an option
-4. Corresponding function is executed
-5. System returns to menu loop
-6. Exit ends the program
-
-
-⚙️ Function Structure
-Core functions:
-  * add_product()
-  * sell_product()
-  * view_inventory()
-  * sales_summary()
-
-Helper functions:
-  * validate_menu_option()
-  * validate_number()
-  * validate_product_name()
-  * find_product()
-
-📊 Design Principles
-  * Separation of concerns (each function has one responsibility)
-  * Strict input validation
-  * Clean data normalization
-  * Structured business logic
-  * Scalable design (future database or CSV migration ready)
+Version 2 focuses on:
+* Filters
+* Analytics
+* Partial sales
+* Better UX
+* Persistence
